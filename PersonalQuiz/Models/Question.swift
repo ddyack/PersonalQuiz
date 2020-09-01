@@ -46,7 +46,7 @@ extension Question {
                     Answer(text: "Ненавижу", type: .cat),
                     Answer(text: "Нервничаю", type: .rabbit),
                     Answer(text: "Не замечаю", type: .turtle),
-                    Answer(text: "Обажаю", type: .dog)
+                    Answer(text: "Обожаю", type: .dog)
             ])
         ]
     }

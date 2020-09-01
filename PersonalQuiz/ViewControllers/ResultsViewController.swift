@@ -10,16 +10,41 @@ import UIKit
 
 class ResultsViewController: UIViewController {
     
-    // 1. Избавиться от кнопкп возврата
-    // 2. Передать сюда массив с выбранными ответами
-    // 3. Определить то животное, которое встречается чаще всего
-    // 4. Отобразить результаты
-    // 5. Подумать над логикой определени индекса в соответсвии с диапазоном
-
+    @IBOutlet weak var resultLabel: UILabel!
+    
+    @IBOutlet weak var resultDescription: UILabel!
+    
+    
+    var results: [Answer] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        navigationItem.setHidesBackButton(true, animated: true)
+        let result = getResult(from: results)
+        showResult(for: result)
     }
 
 }
+
+extension ResultsViewController {
+    private func getResult(from results: [Answer]) -> AnimalType {
+        
+        var counterResults:[AnimalType : Int] = [.dog : 0,
+                                                 .cat : 0,
+                                                 .turtle : 0,
+                                                 .rabbit : 0]
+
+        for result in results {
+            counterResults[result.type]? += 1
+        }
+        
+        let sortedResults = counterResults.sorted { $0.1 > $1.1 }
+        return sortedResults.first?.key ?? AnimalType.dog
+    }
+    
+    private func showResult(for result: AnimalType) {
+        resultLabel.text = "Вы - \(result.rawValue)"
+        resultDescription.text = "\(result.definition)"
+    }
+}
+
